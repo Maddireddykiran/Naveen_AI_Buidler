@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { IoCopyOutline } from "react-icons/io5";
+import { motion, useAnimation, useInView } from "framer-motion";
 
 
 import { links } from "@/config";
 import { techStack } from "@/data";
-import animationData from "@/data/confetti.json";
 import { cn } from "@/lib/utils";
 
 import { BackgroundGradientAnimation } from "./background-gradient-animation";
@@ -54,6 +54,15 @@ export const BentoGridItem = ({
   spareImg?: string;
 }) => {
   const [copied, setCopied] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.3 });
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [controls, isInView]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(links.ownerEmail);
@@ -70,10 +79,35 @@ export const BentoGridItem = ({
     return () => clearTimeout(copyTimeout);
   }, [copied]);
 
+  const gridVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.5, 
+        delay: id ? id * 0.1 : 0
+      }
+    }
+  };
+
+  const hoverVariants = {
+    hover: {
+      scale: 1.02,
+      boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+      transition: { duration: 0.3 }
+    }
+  };
+
   return (
-    <div
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={controls}
+      variants={gridVariants}
+      whileHover="hover"
       className={cn(
-        "group/bento relative row-span-1 flex flex-col justify-between space-y-4 overflow-hidden rounded-3xl border border-white/[0.1] shadow-input transition duration-200 hover:shadow-xl dark:shadow-none",
+        "group/bento relative row-span-1 flex flex-col justify-between space-y-4 overflow-hidden rounded-3xl border border-white/[0.1] shadow-input transition duration-200 dark:shadow-none",
         className
       )}
       style={{
@@ -82,7 +116,10 @@ export const BentoGridItem = ({
           "linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)",
       }}
     >
-      <div className={cn("h-full", id === 6 && "flex justify-center")}>
+      <motion.div 
+        className={cn("h-full", id === 6 && "flex justify-center")}
+        variants={hoverVariants}
+      >
         <div className="absolute h-full w-full">
           {img && (
             <Image
@@ -114,38 +151,59 @@ export const BentoGridItem = ({
 
         {id === 6 && <BackgroundGradientAnimation />}
 
-        <div
+        <motion.div
           className={cn(
-            "relative flex min-h-40 flex-col p-5 px-5 transition duration-200 group-hover/bento:translate-x-2 md:h-full lg:p-10",
+            "relative flex min-h-40 flex-col p-5 px-5 md:h-full lg:p-10",
             titleClassName
           )}
         >
-          <div className={cn(
-            "z-10 font-sans text-sm font-extralight text-[#c1c2d3] md:text-xs lg:text-base",
-            id === 5 && "pr-4 md:pr-8 lg:pr-12"
-          )}>
+          <motion.div 
+            className={cn(
+              "z-10 font-sans text-sm font-extralight text-[#c1c2d3] md:text-xs lg:text-base",
+              id === 5 && "pr-4 md:pr-8 lg:pr-12"
+            )}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isInView ? 1 : 0 }}
+            transition={{ delay: 0.3 }}
+          >
             {description}
-          </div>
+          </motion.div>
 
-          <div className={cn(
-            "z-10 max-w-96 font-sans text-lg font-bold lg:text-3xl",
-            id === 5 && "pr-4 md:pr-8 lg:pr-12"
-          )}>
+          <motion.div 
+            className={cn(
+              "z-10 max-w-96 font-sans text-lg font-bold lg:text-3xl",
+              id === 5 && "pr-4 md:pr-8 lg:pr-12"
+            )}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isInView ? 1 : 0 }}
+            transition={{ delay: 0.4 }}
+          >
             {title}
-          </div>
+          </motion.div>
 
           {id === 2 && <GridGlobe />}
 
           {id === 3 && (
             <div className="absolute -right-3 flex w-fit gap-1 lg:-right-2 lg:gap-5">
               <div className="flex flex-col gap-3 lg:gap-8">
-                {techStack.stack1.map((item) => (
-                  <span
+                {techStack.stack1.map((item, index) => (
+                  <motion.span
                     key={item}
                     className="rounded-lg bg-[#10132e] px-3 py-2 text-center text-xs opacity-50 lg:px-3 lg:py-4 lg:text-base lg:opacity-100"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ 
+                      opacity: isInView ? 1 : 0, 
+                      x: isInView ? 0 : -20 
+                    }}
+                    transition={{ delay: 0.3 + index * 0.1 }}
+                    whileHover={{ 
+                      scale: 1.05, 
+                      backgroundColor: "#1a1e3c",
+                      transition: { duration: 0.2 }
+                    }}
                   >
                     {item}
-                  </span>
+                  </motion.span>
                 ))}
 
                 <span className="rounded-lg bg-[#10132e] px-3 py-4 text-center" />
@@ -153,13 +211,24 @@ export const BentoGridItem = ({
 
               <div className="flex flex-col gap-3 lg:gap-8">
                 <span className="rounded-lg bg-[#10132e] px-3 py-4 text-center" />
-                {techStack.stack2.map((item) => (
-                  <span
+                {techStack.stack2.map((item, index) => (
+                  <motion.span
                     key={item}
                     className="rounded-lg bg-[#10132e] px-3 py-2 text-center text-xs opacity-50 lg:px-3 lg:py-4 lg:text-base lg:opacity-100"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ 
+                      opacity: isInView ? 1 : 0, 
+                      x: isInView ? 0 : 20 
+                    }}
+                    transition={{ delay: 0.3 + index * 0.1 }}
+                    whileHover={{ 
+                      scale: 1.05, 
+                      backgroundColor: "#1a1e3c",
+                      transition: { duration: 0.2 }
+                    }}
                   >
                     {item}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </div>
@@ -182,8 +251,8 @@ export const BentoGridItem = ({
               />
             </div>
           )}
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };

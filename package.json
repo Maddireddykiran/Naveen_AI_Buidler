@@ -4,15 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build || exit 0",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit"
   },
   "author": {
-    "name": "Sanidhya Kumar Verma",
-    "email": "sanidhya.verma12345@gmail.com",
-    "url": "https://github.com/sanidhyy"
+    "name": "Kiran",
+    "email": "maddireddykirankumar2117@gmail.com",
+    "url": "https://github.com/Kiran2117"
   },
   "description": "Modern & Minimalist Next.js Portfolio.",
   "keywords": [

@@ -87,15 +87,15 @@ export const ExperienceTimeline = () => {
             key={experience.id}
             ref={(el) => setExperienceRef(el, index)}
             className={cn(
-              "mb-12 flex flex-col md:mb-16 md:w-[45%]",
+              "mb-12 flex flex-col md:mb-16 md:w-[60%]",
               index % 2 === 0 ? "md:ml-auto md:pl-12" : "md:mr-auto md:pr-12"
             )}
           >
             <div className="relative rounded-xl bg-white/5 p-4 shadow-xl backdrop-blur-sm transition-all duration-300 hover:bg-white/10 dark:bg-black-100/40 dark:hover:bg-black-100/60">
-              {/* Timeline dot */}
-              <div className="absolute -left-3 top-8 hidden h-6 w-6 rounded-full border-4 border-white bg-purple-600 md:block md:left-auto md:right-0 md:translate-x-1/2">
+              {/* Timeline dot - removed */}
+              {/* <div className="absolute -left-3 top-8 hidden h-6 w-6 rounded-full border-4 border-white bg-purple-600 md:block md:left-auto md:right-0 md:translate-x-1/2">
                 <div className="absolute inset-0 animate-ping rounded-full bg-purple-600 opacity-75" />
-              </div>
+              </div> */}
 
               {/* Company logo */}
               <div className="mb-4 flex items-center justify-between">

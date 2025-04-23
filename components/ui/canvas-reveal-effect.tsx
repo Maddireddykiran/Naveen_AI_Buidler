@@ -3,6 +3,10 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import React, { useMemo, useRef } from "react";
 import * as THREE from "three";
+import { extend } from "@react-three/fiber";
+
+// Extend THREE elements to JSX
+extend({ Mesh: THREE.Mesh, PlaneGeometry: THREE.PlaneGeometry });
 
 import { cn } from "@/lib/utils";
 
@@ -194,7 +198,7 @@ const ShaderMaterial = ({
   uniforms: Uniforms;
 }) => {
   const { size } = useThree();
-  const ref = useRef<THREE.Mesh>();
+  const ref = useRef<THREE.Mesh>(null);
   let lastFrameTime = 0;
 
   useFrame(({ clock }) => {

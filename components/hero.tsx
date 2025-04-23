@@ -43,7 +43,7 @@ export const Hero = () => {
           </h1>
 
           <p className="mb-6 text-center lg:text-left text-sm sm:text-base tracking-normal leading-relaxed text-gray-300">
-            Hi, I'm Naveen, a Senior Manager and AI expert specializing in digital transformation using AI, ML, and Adobe Experience Manager (AEM). I build intelligent, scalable platforms that modernize legacy systems and enhance user experiences.
+            Hi, I&apos;m Naveen, a Senior Manager and AI expert specializing in digital transformation using AI, ML, and Adobe Experience Manager (AEM). I build intelligent, scalable platforms that modernize legacy systems and enhance user experiences.
           </p>
 
           {/* Buttons */}
