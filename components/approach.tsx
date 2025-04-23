@@ -1,8 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
-
+import { useState, ReactNode } from "react";
 import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect";
 import { MagicButton } from "@/components/ui/magic-button";
 
@@ -60,8 +59,8 @@ export const Approach = () => {
 type CardProps = {
   title: string;
   description: string;
-  icon: React.ReactNode;
-  children?: React.ReactNode;
+  icon: ReactNode;
+  children?: ReactNode;
 };
 
 const Card = ({ title, description, icon, children }: CardProps) => {
@@ -95,12 +94,12 @@ const Card = ({ title, description, icon, children }: CardProps) => {
           {icon}
         </div>
 
-        <h2 className="relative z-10 mt-4 text-3xl font-bold text-black opacity-0 transition  duration-200 group-hover/canvas-card:-translate-y-2 group-hover/canvas-card:text-white group-hover/canvas-card:opacity-100 dark:text-white">
+        <h2 className="relative z-10 mt-4 text-3xl font-bold text-black opacity-0 transition duration-200 group-hover/canvas-card:-translate-y-2 group-hover/canvas-card:text-white group-hover/canvas-card:opacity-100 dark:text-white">
           {title}
         </h2>
 
         <p
-          className="relative z-10 mt-4 text-sm font-bold text-black opacity-0 transition  duration-200 group-hover/canvas-card:-translate-y-2 group-hover/canvas-card:text-white group-hover/canvas-card:opacity-100 dark:text-white"
+          className="relative z-10 mt-4 text-sm font-bold text-black opacity-0 transition duration-200 group-hover/canvas-card:-translate-y-2 group-hover/canvas-card:text-white group-hover/canvas-card:opacity-100 dark:text-white"
           style={{
             color: "#e4ecff",
           }}
@@ -112,7 +111,12 @@ const Card = ({ title, description, icon, children }: CardProps) => {
   );
 };
 
-export const Icon = ({ className, ...props }: any) => {
+type IconProps = {
+  className?: string;
+  [key: string]: any;
+};
+
+export const Icon = ({ className, ...props }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
