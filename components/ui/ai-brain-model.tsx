@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { useFrame } from "@react-three/fiber";
-import { useGLTF, Float, PresentationControls, MeshDistortMaterial, MeshWobbleMaterial } from "@react-three/drei";
+import { Float, PresentationControls, MeshDistortMaterial, MeshWobbleMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 

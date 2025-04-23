@@ -7,7 +7,7 @@ import { IoCopyOutline } from "react-icons/io5";
 
 import { links } from "@/config";
 import { techStack } from "@/data";
-import animationData from "@/data/confetti.json";
+
 import { cn } from "@/lib/utils";
 
 import { BackgroundGradientAnimation } from "./background-gradient-animation";

@@ -8,7 +8,7 @@ import { Spotlight } from "@/components/ui/spotlight";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { MagicButton } from "@/components/ui/magic-button";
 import { AIScene } from "@/components/ui/ai-scene";
-import { links } from "@/config";
+
 
 export const Hero = () => {
   return (
