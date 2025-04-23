@@ -97,6 +97,24 @@ const config = {
             transform: "translate(-50%,-40%) scale(1)",
           },
         },
+        "pulse-slow": {
+          "0%": {
+            opacity: "0",
+            transform: "translate(-50%, -50%) scale(0)",
+          },
+          "30%": {
+            opacity: "1",
+            transform: "translate(-50%, -50%) scale(1)",
+          },
+          "80%": {
+            opacity: "0.5",
+            transform: "translate(-50%, -50%) scale(1)",
+          },
+          "100%": {
+            opacity: "0",
+            transform: "translate(-50%, -50%) scale(1)",
+          },
+        },
         shimmer: {
           from: {
             backgroundPosition: "0 0",
@@ -148,6 +166,7 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         spotlight: "spotlight 2s ease .75s 1 forwards",
+        "pulse-slow": "pulse-slow 6s ease-in-out infinite",
         shimmer: "shimmer 2s linear infinite",
         first: "moveVertical 30s ease infinite",
         second: "moveInCircle 20s reverse infinite",
@@ -162,7 +181,16 @@ const config = {
   plugins: [
     require("tailwindcss-animate"),
     addVariablesForColors,
-    function ({ matchUtilities, theme }: any) {
+    function ({ matchUtilities, theme, addUtilities }: any) {
+      addUtilities({
+        '.animation-delay-2000': {
+          'animation-delay': '2s',
+        },
+        '.animation-delay-4000': {
+          'animation-delay': '4s',
+        },
+      });
+      
       matchUtilities(
         {
           "bg-grid": (value: any) => ({

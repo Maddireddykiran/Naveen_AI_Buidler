@@ -1,5 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -67,7 +66,7 @@ export const PinPerspective = ({
   href?: string;
 }) => {
   return (
-    <motion.div className="z-[60] flex h-80 w-full items-center justify-center opacity-0 transition duration-500 group-hover/pin:opacity-100">
+    <div className="z-[60] flex h-80 w-full items-center justify-center opacity-0 transition duration-500 group-hover/pin:opacity-100">
       <div className="inset-0 -mt-7 h-full w-full flex-none">
         <div className="absolute inset-x-0 top-0 flex justify-center">
           <Link
@@ -94,91 +93,40 @@ export const PinPerspective = ({
           className="absolute left-1/2 top-1/2 ml-[0.09375rem] mt-4 -translate-x-1/2 -translate-y-1/2"
         >
           <>
-            <motion.div
-              initial={{
-                opacity: 0,
-                scale: 0,
-                x: "-50%",
-                y: "-50%",
-              }}
-              animate={{
-                opacity: [0, 1, 0.5, 0],
-                scale: 1,
-
-                z: 0,
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                delay: 0,
-              }}
-              className="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
+            <div
+              className="absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] animate-pulse-slow"
               aria-hidden
             />
-            <motion.div
-              initial={{
-                opacity: 0,
-                scale: 0,
-                x: "-50%",
-                y: "-50%",
-              }}
-              animate={{
-                opacity: [0, 1, 0.5, 0],
-                scale: 1,
-
-                z: 0,
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                delay: 2,
-              }}
-              className="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
+            <div
+              className="absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] animate-pulse-slow animation-delay-2000"
               aria-hidden
             />
-            <motion.div
-              initial={{
-                opacity: 0,
-                scale: 0,
-                x: "-50%",
-                y: "-50%",
-              }}
-              animate={{
-                opacity: [0, 1, 0.5, 0],
-                scale: 1,
-
-                z: 0,
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                delay: 4,
-              }}
-              className="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
+            <div
+              className="absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] animate-pulse-slow animation-delay-4000"
               aria-hidden
             />
           </>
         </div>
 
         <>
-          <motion.div
+          <div
             aria-hidden
             className="absolute bottom-1/2 right-1/2 h-20 w-px translate-y-[14px] bg-gradient-to-b from-transparent to-cyan-500 blur-[2px] group-hover/pin:h-40"
           />
-          <motion.div
+          <div
             aria-hidden
-            className="absolute bottom-1/2 right-1/2 h-20 w-px translate-y-[14px] bg-gradient-to-b from-transparent to-cyan-500 group-hover/pin:h-40  "
+            className="absolute bottom-1/2 right-1/2 h-20 w-px translate-y-[14px] bg-gradient-to-b from-transparent to-cyan-500 group-hover/pin:h-40"
           />
-          <motion.div
+          <div
             aria-hidden
             className="absolute bottom-1/2 right-1/2 z-40 h-[4px] w-[4px] translate-x-[1.5px] translate-y-[14px] rounded-full bg-cyan-600 blur-[3px]"
           />
-          <motion.div
+          <div
             aria-hidden
-            className="absolute bottom-1/2 right-1/2 z-40 h-[2px] w-[2px] translate-x-[0.5px] translate-y-[14px] rounded-full bg-cyan-300 "
+            className="absolute bottom-1/2 right-1/2 z-40 h-[2px] w-[2px] translate-x-[0.5px] translate-y-[14px] rounded-full bg-cyan-300"
           />
         </>
       </div>
-    </motion.div>
+    </div>
   );
 };

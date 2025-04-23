@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { useState, ReactNode } from "react";
 import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect";
 import { MagicButton } from "@/components/ui/magic-button";
@@ -77,17 +76,13 @@ const Card = ({ title, description, icon, children }: CardProps) => {
       <Icon className="absolute -right-3 -top-3 h-6 w-6 text-black dark:text-white" />
       <Icon className="absolute -bottom-3 -right-3 h-6 w-6 text-black dark:text-white" />
 
-      <AnimatePresence>
-        {hovered && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="absolute inset-0 h-full w-full"
-          >
-            {children}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div 
+        className={`absolute inset-0 h-full w-full transition-opacity duration-300 ${
+          hovered ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        {children}
+      </div>
 
       <div className="relative z-20">
         <div className="absolute left-[50%] top-[50%] mx-auto flex w-full -translate-x-[50%] -translate-y-[50%] items-center justify-center text-center transition duration-200 group-hover/canvas-card:-translate-y-4 group-hover/canvas-card:opacity-0">
@@ -116,7 +111,7 @@ type IconProps = {
   [key: string]: any;
 };
 
-export const Icon = ({ className, ...props }: IconProps) => {
+const Icon = ({ className, ...props }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

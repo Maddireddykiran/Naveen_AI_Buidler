@@ -72,7 +72,7 @@ export const FloatingNav = ({ navItems, className }: FloatingNavProps) => {
         animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
         transition={{ duration: 0.2 }}
         className={cn(
-          "fixed inset-x-0 top-10 z-[5000] mx-auto flex max-w-fit items-center justify-center space-x-4 rounded-3xl border border-white/[0.2] bg-black-100 px-3 py-5 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]",
+          "fixed inset-x-0 top-10 z-[5000] mx-auto flex max-w-fit items-center justify-center space-x-4 rounded-3xl border border-white/[0.2] bg-black-100 px-5 py-5 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] backdrop-blur-md",
           className
         )}
       >
@@ -80,13 +80,13 @@ export const FloatingNav = ({ navItems, className }: FloatingNavProps) => {
           <Link
             key={`link-${idx}`}
             href={navItem.link}
-            className={cn(
-              "relative flex items-center space-x-1 text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300 transform transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-clip-text hover:text-transparent"
-            )}
+            className="group relative px-3 py-1"
           >
-            <span className={`!cursor-pointer text-sm uppercase ${css(underlineStyle)}`}>
+            <span className="relative z-10 text-sm font-medium uppercase tracking-wider text-white transition-colors duration-300 group-hover:text-red-500">
               {navItem.name}
             </span>
+            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-red-500 to-red-700 transition-all duration-300 group-hover:w-full"></span>
+            <span className="absolute -inset-1 -z-10 scale-[0.8] rounded-lg opacity-0 blur transition duration-300 group-hover:scale-100 group-hover:opacity-10 bg-red-500"></span>
           </Link>
         ))}
       </motion.nav>
