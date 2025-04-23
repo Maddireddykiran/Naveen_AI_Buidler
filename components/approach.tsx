@@ -10,14 +10,14 @@ export const Approach = () => {
   return (
     <section className="w-full py-20">
       <h1 className="heading">
-        My <span className="text-purple">approach</span>
+        My <span className="text-purple">AEM & AI Leadership Approach</span>
       </h1>
 
       <div className="my-20 flex flex-col items-center justify-center gap-4 lg:flex-row">
         <Card
           title="Planning & Strategy"
           icon={<MagicButton title="Phase 1" asChild />}
-          description="We'll collaborate to map out your website's goals, target audience, and key functionalities. We'll discuss things like site structure, navigation, and content requirements."
+          description="As an AEM Technical Architect, I'll lead the planning phase to establish enterprise-grade digital experiences. We'll define AI-driven strategies and innovative solutions tailored to your business needs."
         >
           <CanvasRevealEffect
             animationSpeed={5.1}
@@ -28,7 +28,7 @@ export const Approach = () => {
         <Card
           title="Deployment & Progress Update"
           icon={<MagicButton title="Phase 2" asChild />}
-          description="Once we agree on the plan, I cue my lofi playlist and dive into coding. From initial sketches to polished code, I keep you updated every step of the way."
+          description="I'll architect robust AEM solutions while integrating AI capabilities. Through iterative development and continuous integration, I'll ensure seamless progress and technical excellence."
         >
           <CanvasRevealEffect
             animationSpeed={3}
@@ -44,7 +44,7 @@ export const Approach = () => {
         <Card
           title="Development & Launch"
           icon={<MagicButton title="Phase 3" asChild />}
-          description="This is where the magic happens! Based on the approved design, I'll translate everything into functional code, building your website from the ground up."
+          description="Leveraging my expertise in AEM and AI, I'll deliver cutting-edge digital solutions. From deployment to optimization, I'll ensure maximum performance and scalability."
         >
           <CanvasRevealEffect
             animationSpeed={3}

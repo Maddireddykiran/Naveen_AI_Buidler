@@ -1,9 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { FaLocationArrow } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 import { Spotlight } from "@/components/ui/spotlight";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { MagicButton } from "@/components/ui/magic-button";
+import { AIScene } from "@/components/ui/ai-scene";
 import { links } from "@/config";
 
 export const Hero = () => {
@@ -25,30 +29,59 @@ export const Hero = () => {
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black-100" />
       </div>
 
-      <div className="relative z-10 my-20 flex justify-center">
-        <div className="flex max-w-[89vw] flex-col items-center justify-center md:max-w-2xl lg:max-w-[60vw]">
-          <h2 className="max-w-80 text-center text-xs uppercase tracking-widest text-blue-100">
-            Dynamic Web Magic with Next.js
+      <div className="relative z-10 my-10 flex flex-col justify-center lg:flex-row lg:items-center lg:gap-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex max-w-[89vw] flex-col items-center justify-center md:max-w-2xl lg:max-w-[40vw] lg:items-start"
+        >
+          <h2 className="max-w-80 text-center text-xs uppercase tracking-widest text-blue-100 lg:text-left">
+          AI & Automation Expert | Senior Manager at Deloitte Digital
           </h2>
 
           <TextGenerateEffect
-            className="text-center text-[40px] md:text-5xl lg:text-6xl"
-            words="Transforming Concepts into Seamless User Experiences"
+            className="text-center text-[35px] md:text-4xl lg:text-5xl lg:text-left"
+            words="Crafting Intelligent Digital Experiences with AI"
           />
+<p className="mb-3 text-center text-xs sm:text-sm lg:text-left lg:text-sm tracking-normal">
+  Hi, I'm Naveen, a Senior Manager and AI expert specializing in digital transformation using AI, ML, and Adobe Experience Manager (AEM). I build intelligent, scalable platforms that modernize legacy systems and enhance user experiences.
+</p>
 
-          <p className="mb-4 text-center text-sm md:text-lg md:tracking-wider lg:text-2xl">
-            Hi, I&apos;m {links.ownerName}, a Next.js developer based in India.
-          </p>
 
-          <Link href="#about" className="md:mt-10">
-            <MagicButton
-              title="Show my work"
-              icon={<FaLocationArrow />}
-              position="right"
-              asChild
-            />
-          </Link>
-        </div>
+
+          <div className="flex gap-4">
+            <Link href="#about">
+              <MagicButton
+                title="View my work"
+                icon={<FaLocationArrow />}
+                position="right"
+                asChild
+              />
+            </Link>
+            <Link href="#contact">
+              <MagicButton
+                title="Hire me"
+                variant="outline"
+                asChild
+              />
+            </Link>
+          </div>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
+          className="mt-10 w-full lg:mt-0 lg:w-1/2"
+        >
+          <div className="relative">
+            <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 opacity-75 blur-xl"></div>
+            <div className="relative overflow-hidden rounded-lg">
+              <AIScene />
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

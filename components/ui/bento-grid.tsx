@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { IoCopyOutline } from "react-icons/io5";
-import Lottie from "react-lottie";
+
 
 import { links } from "@/config";
 import { techStack } from "@/data";
@@ -120,11 +120,17 @@ export const BentoGridItem = ({
             titleClassName
           )}
         >
-          <div className="z-10 font-sans text-sm font-extralight text-[#c1c2d3] md:text-xs lg:text-base">
+          <div className={cn(
+            "z-10 font-sans text-sm font-extralight text-[#c1c2d3] md:text-xs lg:text-base",
+            id === 5 && "pr-4 md:pr-8 lg:pr-12"
+          )}>
             {description}
           </div>
 
-          <div className="z-10 max-w-96 font-sans text-lg font-bold lg:text-3xl">
+          <div className={cn(
+            "z-10 max-w-96 font-sans text-lg font-bold lg:text-3xl",
+            id === 5 && "pr-4 md:pr-8 lg:pr-12"
+          )}>
             {title}
           </div>
 
@@ -165,16 +171,6 @@ export const BentoGridItem = ({
                 tabIndex={-1}
                 className="pointer-events-none absolute -bottom-5 right-0 cursor-default"
               >
-                <Lottie
-                  options={{
-                    loop: copied,
-                    autoplay: copied,
-                    animationData,
-                    rendererSettings: {
-                      preserveAspectRatio: "xMidYMid slice",
-                    },
-                  }}
-                />
               </button>
 
               <MagicButton
