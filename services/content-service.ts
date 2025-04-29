@@ -99,6 +99,7 @@ export interface ContentData {
   footer: Footer;
   gridItems: GridItem[];
   hero: Hero;
+  about?: any;
 }
 
 // Read content file
@@ -272,5 +273,24 @@ export const getFooter = (): Footer => {
 export const updateFooter = (updatedFooter: Footer): void => {
   const content = readContentFile();
   content.footer = updatedFooter;
+  writeContentFile(content);
+};
+
+// Get about data
+export const getAbout = (): any => {
+  const content = readContentFile();
+  return content.about || {
+    mainText: '',
+    profileImage: '',
+    jobTitle: '',
+    closingText: '',
+    expertiseItems: []
+  };
+};
+
+// Update about data
+export const updateAbout = (updatedAbout: any): void => {
+  const content = readContentFile();
+  content.about = updatedAbout;
   writeContentFile(content);
 }; 

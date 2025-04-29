@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import { getAbout, updateAbout } from '@/lib/content-service';
+import { NextRequest, NextResponse } from 'next/server';
+import { getAbout, updateAbout } from '@/services/content-service';
 
 export async function GET() {
   try {
