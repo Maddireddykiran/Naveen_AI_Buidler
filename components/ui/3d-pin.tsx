@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -20,10 +20,34 @@ export const PinContainer = ({
   const [transform, setTransform] = useState(
     "translate(-50%,-50%) rotateX(0deg)"
   );
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if we're on a mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768); // 768px is typical md breakpoint
+    };
+    
+    // Initial check
+    checkMobile();
+    
+    // Add resize listener
+    window.addEventListener('resize', checkMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const onMouseEnter = () => {
-    setTransform("translate(-50%,-50%) rotateX(40deg) scale(0.8)");
+    if (isMobile) {
+      // Simple scale animation for mobile
+      setTransform("translate(-50%,-50%) rotateX(0deg) scale(0.97)");
+    } else {
+      // 3D rotation for desktop
+      setTransform("translate(-50%,-50%) rotateX(40deg) scale(0.8)");
+    }
   };
+  
   const onMouseLeave = () => {
     setTransform("translate(-50%,-50%) rotateX(0deg) scale(1)");
   };
@@ -31,7 +55,7 @@ export const PinContainer = ({
   return (
     <div
       className={cn(
-        "group/pin relative z-50  cursor-pointer",
+        "group/pin relative z-50 cursor-pointer",
         containerClassName
       )}
       onMouseEnter={onMouseEnter}
@@ -40,7 +64,9 @@ export const PinContainer = ({
       <div
         style={{
           perspective: "1000px",
-          transform: "rotateX(70deg) translateZ(0deg)",
+          transform: isMobile 
+            ? "rotateX(0deg) translateZ(0deg)" 
+            : "rotateX(70deg) translateZ(0deg)",
         }}
         className="absolute left-1/2 top-1/2 ml-[0.09375rem] mt-4 -translate-x-1/2 -translate-y-1/2"
       >
@@ -48,12 +74,29 @@ export const PinContainer = ({
           style={{
             transform: transform,
           }}
-          className="absolute left-1/2 top-1/2 flex  items-start justify-start overflow-hidden  rounded-2xl  border border-white/[0.1] p-4 shadow-[0_8px_16px_rgb(0_0_0/0.4)] transition duration-700 group-hover/pin:border-white/[0.2]"
+          className="absolute left-1/2 top-1/2 flex items-start justify-start overflow-hidden rounded-2xl border border-white/[0.1] p-4 shadow-[0_8px_16px_rgb(0_0_0/0.4)] transition duration-700 group-hover/pin:border-white/[0.2]"
         >
-          <div className={cn(" relative z-50 ", className)}>{children}</div>
+          <div className={cn("relative z-50", className)}>{children}</div>
         </div>
       </div>
-      <PinPerspective title={title} href={href} />
+      {!isMobile && <PinPerspective title={title} href={href} />}
+      {isMobile && (
+        <div className="z-[60] flex h-80 w-full items-center justify-center opacity-0 transition duration-500 group-hover/pin:opacity-100">
+          <Link
+            href={href || ""}
+            target="_blank"
+            className="relative z-10 mt-64 flex items-center space-x-2 rounded-full bg-zinc-950 px-4 py-1.5 ring-1 ring-white/10"
+          >
+            <span className="relative z-20 inline-block py-0.5 text-xs font-bold text-white">
+              {title}
+            </span>
+            <span
+              aria-hidden
+              className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover/btn:opacity-40"
+            />
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
@@ -130,3 +173,4 @@ export const PinPerspective = ({
     </div>
   );
 };
+

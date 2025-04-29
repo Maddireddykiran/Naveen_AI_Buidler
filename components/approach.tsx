@@ -1,56 +1,93 @@
 "use client";
 
-import { useState, ReactNode } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect";
 import { MagicButton } from "@/components/ui/magic-button";
 
+interface ApproachPhase {
+  title: string;
+  phase: string;
+  description: string;
+}
+
 export const Approach = () => {
+  const [phases, setPhases] = useState<ApproachPhase[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchApproach() {
+      try {
+        const response = await fetch('/api/content/approach');
+        if (response.ok) {
+          const data = await response.json();
+          setPhases(data);
+        } else {
+          console.error("Failed to load approach data");
+        }
+      } catch (error) {
+        console.error("Error loading approach data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchApproach();
+  }, []);
+
+  // Canvas colors for each phase
+  const phaseCanvasProps = [
+    {
+      animationSpeed: 5.1,
+      containerClassName: "bg-emerald-900",
+      colors: undefined,
+      dotSize: undefined
+    },
+    {
+      animationSpeed: 3,
+      containerClassName: "bg-black",
+      colors: [
+        [236, 72, 153],
+        [232, 121, 249],
+      ],
+      dotSize: 2
+    },
+    {
+      animationSpeed: 3,
+      containerClassName: "bg-sky-600",
+      colors: [[125, 211, 252]],
+      dotSize: undefined
+    }
+  ];
+
   return (
     <section className="w-full py-20">
       <h1 className="heading">
         My <span className="text-purple">AEM & AI Leadership Approach</span>
       </h1>
 
+      {loading ? (
+        <div className="my-20 flex items-center justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-t-2 border-purple-600"></div>
+        </div>
+      ) : (
       <div className="my-20 flex flex-col items-center justify-center gap-4 lg:flex-row">
+          {phases.map((phase, index) => (
         <Card
-          title="Planning & Strategy"
-          icon={<MagicButton title="Phase 1" asChild />}
-          description="As an AEM Technical Architect, I'll lead the planning phase to establish enterprise-grade digital experiences. We'll define AI-driven strategies and innovative solutions tailored to your business needs."
+              key={index}
+              title={phase.title}
+              icon={<MagicButton title={phase.phase} asChild />}
+              description={phase.description}
         >
           <CanvasRevealEffect
-            animationSpeed={5.1}
-            containerClassName="bg-emerald-900"
+                animationSpeed={phaseCanvasProps[index % phaseCanvasProps.length].animationSpeed}
+                containerClassName={phaseCanvasProps[index % phaseCanvasProps.length].containerClassName}
+                colors={phaseCanvasProps[index % phaseCanvasProps.length].colors}
+                dotSize={phaseCanvasProps[index % phaseCanvasProps.length].dotSize}
           />
         </Card>
-
-        <Card
-          title="Deployment & Progress Update"
-          icon={<MagicButton title="Phase 2" asChild />}
-          description="I'll architect robust AEM solutions while integrating AI capabilities. Through iterative development and continuous integration, I'll ensure seamless progress and technical excellence."
-        >
-          <CanvasRevealEffect
-            animationSpeed={3}
-            containerClassName="bg-black"
-            colors={[
-              [236, 72, 153],
-              [232, 121, 249],
-            ]}
-            dotSize={2}
-          />
-        </Card>
-
-        <Card
-          title="Development & Launch"
-          icon={<MagicButton title="Phase 3" asChild />}
-          description="Leveraging my expertise in AEM and AI, I'll deliver cutting-edge digital solutions. From deployment to optimization, I'll ensure maximum performance and scalability."
-        >
-          <CanvasRevealEffect
-            animationSpeed={3}
-            containerClassName="bg-sky-600"
-            colors={[[125, 211, 252]]}
-          />
-        </Card>
+          ))}
       </div>
+      )}
     </section>
   );
 };

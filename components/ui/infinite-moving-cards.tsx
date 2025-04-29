@@ -2,9 +2,13 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-
-import { testimonials } from "@/data";
 import { cn } from "@/lib/utils";
+
+interface Testimonial {
+  quote: string;
+  name: string;
+  title: string;
+}
 
 export const InfiniteMovingCards = ({
   items,
@@ -13,7 +17,7 @@ export const InfiniteMovingCards = ({
   pauseOnHover = true,
   className,
 }: {
-  items: typeof testimonials;
+  items: Testimonial[];
   direction?: "left" | "right";
   speed?: "fast" | "normal" | "slow";
   pauseOnHover?: boolean;
@@ -70,7 +74,7 @@ export const InfiniteMovingCards = ({
   useEffect(() => {
     addAnimation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [items]);
 
   return (
     <div

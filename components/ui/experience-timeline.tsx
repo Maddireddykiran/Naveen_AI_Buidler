@@ -1,19 +1,31 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { cn } from "@/lib/utils";
-import { workExperience } from "@/data";
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+interface Experience {
+  id: number;
+  title: string;
+  company: string;
+  period: string;
+  location: string;
+  desc: string;
+  skills: string[];
+  thumbnail: string;
+}
+
 export const ExperienceTimeline = () => {
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [loading, setLoading] = useState(true);
   const timelineRef = useRef<HTMLDivElement>(null);
   const experienceRefs = useRef<HTMLDivElement[]>([]);
   const setExperienceRef = (el: HTMLDivElement | null, index: number) => {
@@ -22,8 +34,35 @@ export const ExperienceTimeline = () => {
     }
   };
 
+  // Fetch experiences from API
   useEffect(() => {
-    if (!timelineRef.current) return;
+    const fetchExperiences = async () => {
+      try {
+        console.log('Fetching experiences...');
+        const response = await fetch('/api/content/experience');
+        console.log('Response status:', response.status);
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Experience data received:', data);
+          setExperiences(data);
+        } else {
+          console.error('Failed to fetch experiences, status:', response.status);
+          const errorText = await response.text();
+          console.error('Error response:', errorText);
+        }
+      } catch (error) {
+        console.error('Error fetching experiences:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchExperiences();
+  }, []);
+
+  useEffect(() => {
+    if (!timelineRef.current || experiences.length === 0) return;
 
     // Create timeline animation
     const timeline = gsap.timeline({
@@ -73,7 +112,15 @@ export const ExperienceTimeline = () => {
       // Clean up ScrollTrigger instances
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, []);
+  }, [experiences]);
+
+  if (loading) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-white/70">Loading experience data...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="relative mx-auto max-w-[95rem] px-4 sm:px-8 lg:px-12 py-8 sm:py-12" ref={timelineRef}>
@@ -82,7 +129,7 @@ export const ExperienceTimeline = () => {
 
       {/* Experience cards */}
       <div className="relative z-10">
-        {workExperience.map((experience, index) => (
+        {experiences.map((experience, index) => (
           <div
             key={experience.id}
             ref={(el) => setExperienceRef(el, index)}
@@ -113,6 +160,7 @@ export const ExperienceTimeline = () => {
                   <div>
                     <h3 className="text-xl font-bold text-white">{experience.title}</h3>
                     <p className="text-base font-medium text-purple-400">{experience.company}</p>
+                    <p className="text-xs text-white/50">ID: {experience.id}</p>
                   </div>
                 </div>
                 <div className="flex flex-col items-end">

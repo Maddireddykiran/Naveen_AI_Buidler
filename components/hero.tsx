@@ -5,8 +5,43 @@ import { FaLocationArrow } from "react-icons/fa6";
 import { Spotlight } from "@/components/ui/spotlight";
 import { MagicButton } from "@/components/ui/magic-button";
 import { AIMLScene } from "@/components/ui/ai-ml-scene";
+import { useEffect, useState } from "react";
+
+interface HeroData {
+  professionTitle: string;
+  heading: string;
+  description: string;
+  ctaText: string;
+  ctaLink: string;
+  image: string;
+}
 
 export const Hero = () => {
+  const [heroData, setHeroData] = useState<HeroData>({
+    professionTitle: "AI & AUTOMATION EXPERT | SENIOR MANAGER AT DELOITTE DIGITAL",
+    heading: "Crafting Intelligent Digital Experiences with AI",
+    description: "Hi, I'm Naveen, a Senior Manager and AI expert specializing in digital transformation using AI, ML, and Adobe Experience Manager (AEM). I build intelligent, scalable platforms that modernize legacy systems and enhance user experiences.",
+    ctaText: "Contact Me",
+    ctaLink: "#contact",
+    image: "/profile.svg"
+  });
+
+  useEffect(() => {
+    const fetchHeroData = async () => {
+      try {
+        const response = await fetch('/api/content/hero');
+        if (response.ok) {
+          const data = await response.json();
+          setHeroData(data);
+        }
+      } catch (error) {
+        console.error('Error fetching hero data:', error);
+      }
+    };
+
+    fetchHeroData();
+  }, []);
+
   return (
     <div className="pb-20 pt-36 relative">
       {/* Spotlights */}
@@ -35,15 +70,15 @@ export const Hero = () => {
         {/* Text Content */}
         <div className="flex max-w-[89vw] flex-col items-center justify-center md:max-w-2xl lg:max-w-[40vw] lg:items-start">
           <h2 className="text-center lg:text-left text-sm uppercase tracking-widest text-blue-100 bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text font-semibold">
-            AI & AUTOMATION EXPERT | SENIOR MANAGER AT DELOITTE DIGITAL
+            {heroData.professionTitle}
           </h2>
 
           <h1 className="text-center lg:text-left my-4 text-[40px] md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-            Crafting Intelligent Digital Experiences with AI
+            {heroData.heading}
           </h1>
 
           <p className="mb-6 text-center lg:text-left text-sm sm:text-base tracking-normal leading-relaxed text-gray-300">
-            Hi, I&apos;m Naveen, a Senior Manager and AI expert specializing in digital transformation using AI, ML, and Adobe Experience Manager (AEM). I build intelligent, scalable platforms that modernize legacy systems and enhance user experiences.
+            {heroData.description}
           </p>
 
           {/* Buttons */}
@@ -59,10 +94,10 @@ export const Hero = () => {
               </div>
             </Link>
 
-            <Link href="#contact">
+            <Link href={heroData.ctaLink}>
               <div className="transition-transform duration-300 ease-in-out hover:bg-green-600 hover:text-white hover:scale-105 rounded-md">
                 <MagicButton
-                  title="Hire me"
+                  title={heroData.ctaText}
                   variant="outline"
                   asChild
                 />

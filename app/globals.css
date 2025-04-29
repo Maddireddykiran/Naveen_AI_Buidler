@@ -76,15 +76,43 @@
   button {
     @apply active:outline-none;
   }
+  /* Responsive font sizes */
+  h1 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+  }
+  h2 {
+    @apply text-xl md:text-2xl lg:text-3xl;
+  }
+  h3 {
+    @apply text-lg md:text-xl lg:text-2xl;
+  }
+  p {
+    @apply text-sm md:text-base;
+  }
 }
 
 @layer utilities {
   .heading {
-    @apply text-center text-4xl font-bold md:text-5xl;
+    @apply text-center text-3xl font-bold md:text-4xl lg:text-5xl;
   }
 
   .black-gradient {
     background: linear-gradient(90deg, #161a31 0%, #06091f 100%);
+  }
+  
+  /* Responsive section spacing */
+  .section-spacing {
+    @apply py-8 md:py-12 lg:py-20;
+  }
+  
+  /* Mobile friendly tappable areas */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* Responsive container widths */
+  .container-narrow {
+    @apply w-[95%] md:w-[90%] lg:w-[85%] max-w-6xl mx-auto;
   }
   
   /* AI Particle Animations */
@@ -142,6 +170,28 @@
     80% {
       transform: translateY(5px) translateX(15px);
       opacity: 0.7;
+    }
+  }
+
+  /* Perspective 3D transform utilities */
+  .perspective-3d {
+    perspective: 1500px;
+    transform-style: preserve-3d;
+  }
+
+  .rotate-y-10:hover {
+    transform: rotateY(10deg);
+  }
+  
+  /* Mobile tappable animations instead of hover animations */
+  @media (max-width: 767px) {
+    .tap-highlight {
+      @apply transition-all duration-300 active:bg-opacity-80 active:scale-95;
+    }
+    
+    /* Disable complex hover effects on mobile */
+    .mobile-simple-hover {
+      @apply transition-all duration-300 active:scale-97 hover:scale-none;
     }
   }
 }
