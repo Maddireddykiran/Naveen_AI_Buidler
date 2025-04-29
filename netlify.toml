@@ -1,5 +1,5 @@
 [build]
-  command = "CI=false npm run build"
+  command = "npm install sharp && CI=false npm run build"
   publish = ".next"
   
 [build.environment]

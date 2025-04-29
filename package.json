@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm install sharp && next build",
     "start": "next start",
     "lint": "next lint || exit 0",
     "type-check": "tsc --noEmit || exit 0"

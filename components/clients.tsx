@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { InfiniteMovingLogos } from "@/components/ui/infinite-moving-logos";
 
 interface Testimonial {
   quote: string;
@@ -40,32 +41,38 @@ export const Clients = () => {
     {
       id: 1,
       img: "/deo.svg",
+      alt: "Deloitte Logo"
     },
     {
       id: 2,
       img: "/adobe-2.svg",
+      alt: "Adobe Logo"
     },
     {
       id: 3,
       img: "/moto.svg",
+      alt: "Motorola Logo"
     },
     {
       id: 4,
       img: "/CGI_logo.svg",
+      alt: "CGI Logo"
     },
     {
       id: 5,
       img: "/flo.svg",
+      alt: "Florida Logo"
     },
     { 
       id: 6,
       img: "/gen.svg",
+      alt: "Genesis10 Logo"
     },
   ];
 
   return (
     <section id="testimonials" className="py-20">
-      <h1 className="heading">
+      <h1 className="heading mb-16">
         Kind words from <span className="text-purple">satisfied clients</span>
       </h1>
 
@@ -88,19 +95,10 @@ export const Clients = () => {
           </div>
         )}
         
-        <div className="flex flex-wrap items-center justify-center gap-4 max-lg:mt-10 md:gap-16">
-          {companyLogos.map(({ id, img }) => (
-    <div key={id} className="flex max-w-100 gap-4 md:max-w-60">
-      <Image
-        height={100}
-        width={120}
-        src={img}
-        alt="company logo"
-        className="w-25 md:w-20"
-      />
-    </div>
-  ))}
-</div>
+        <div className="mt-20 w-full overflow-hidden">
+          <h2 className="text-center text-xl font-medium text-white/70 mb-8">Where I've Made an Impact</h2>
+          <InfiniteMovingLogos items={companyLogos} speed="slow" />
+        </div>
       </div>
     </section>
   );

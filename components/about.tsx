@@ -135,8 +135,39 @@ export const About = () => {
           animate={controls}
           className="mt-10 lg:mx-0 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
         >
-          {/* Left Content */}
-          <motion.div variants={itemVariants} className="flex flex-col gap-8">
+          {/* Image Content - Displayed first on mobile */}
+          <motion.div
+            variants={itemVariants}
+            className="relative h-[350px] md:h-[450px] order-1 lg:order-2 flex items-center justify-center"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-2xl blur-2xl opacity-30"></div>
+            
+            <div className="relative z-10 w-full h-full p-4">
+              <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl transform hover:scale-[1.02] hover:shadow-purple-500/20 transition-all duration-700">
+                {/* Animation overlay that activates on hover */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/20 via-transparent to-blue-500/20 opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <Image
+                  src={aboutData.profileImage}
+                  alt="Professional Portrait"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  className="rounded-2xl"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                
+                <div className="absolute bottom-0 left-0 right-0 p-8 text-center transform transition-transform duration-500 hover:translate-y-[-5px]">
+                  <span className="px-4 py-2 rounded-full bg-purple-500/30 text-sm font-medium text-purple-200 backdrop-blur-sm border border-purple-400/20">
+                    {aboutData.jobTitle}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Text Content - Displayed second on mobile */}
+          <motion.div variants={itemVariants} className="flex flex-col gap-8 order-2 lg:order-1">
             <motion.p 
               variants={itemVariants}
               className="text-base md:text-lg text-white/80 leading-relaxed"
@@ -171,33 +202,6 @@ export const About = () => {
             >
               {aboutData.closingText}
             </motion.p>
-          </motion.div>
-
-          {/* Right Content - 3D Image Display */}
-          <motion.div
-            variants={itemVariants}
-            className="relative h-[450px] md:h-[500px] flex items-center justify-center"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-2xl blur-2xl opacity-30"></div>
-            
-            <div className="relative z-10 w-full h-full p-4">
-              <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl transform perspective-3d hover:rotate-y-10 transition-transform duration-700">
-                <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/10 via-transparent to-blue-500/10"></div>
-                <Image
-                  src={aboutData.profileImage}
-                  alt="Professional Portrait"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  className="rounded-2xl"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-center">
-                  <span className="px-4 py-2 rounded-full bg-purple-500/30 text-sm font-medium text-purple-200 backdrop-blur-sm">{aboutData.jobTitle}</span>
-                </div>
-              </div>
-            </div>
           </motion.div>
         </motion.div>
       </div>

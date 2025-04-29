@@ -131,7 +131,7 @@ export const Footer = () => {
           </Link>
         </p>
 
-        <div className="flex items-center gap-6 md:gap-3">
+        <div className="flex items-center gap-6 md:gap-6 mt-4 md:mt-0">
           {socialMediaLinks.map((profile) => (
             <Link
               key={profile.name}
